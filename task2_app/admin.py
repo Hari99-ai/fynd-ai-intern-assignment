@@ -1,12 +1,29 @@
 import streamlit as st
 import pandas as pd
+import os
 
-DATA_PATH = "data/feedback.csv"
+# ---------- PATH SETUP (CRITICAL) ----------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "data")
+DATA_PATH = os.path.join(DATA_DIR, "feedback.csv")
 
-st.set_page_config(page_title="Admin Dashboard", layout="wide")
-st.title("📊 Admin Feedback Dashboard")
+os.makedirs(DATA_DIR, exist_ok=True)
+
+if not os.path.exists(DATA_PATH):
+    pd.DataFrame(columns=[
+        "timestamp",
+        "rating",
+        "user_review",
+        "ai_response",
+        "ai_summary",
+        "ai_action"
+    ]).to_csv(DATA_PATH, index=False)
 
 df = pd.read_csv(DATA_PATH)
+
+# ---------- STREAMLIT UI ----------
+st.set_page_config(page_title="Admin Dashboard", layout="wide")
+st.title("📊 Admin Feedback Dashboard")
 
 if df.empty:
     st.info("No feedback submitted yet.")
