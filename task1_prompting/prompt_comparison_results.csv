@@ -1,0 +1,4 @@
+Prompt,Accuracy,JSON_Validity_Rate
+v1_simple,0.0,0.0
+v2_structured,0.0,0.0
+v3_reasoning_guided,0.0,0.0
